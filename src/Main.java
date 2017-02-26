@@ -77,7 +77,7 @@ public class Main {
 		SCM_Copy copy = new SCM_Copy();
 		try {
 			copy.run(values[1], values[2]);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.out.println("Error Copying Repo");
 		}
 	}

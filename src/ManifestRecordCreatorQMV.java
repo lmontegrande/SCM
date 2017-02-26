@@ -15,7 +15,7 @@ import javax.swing.JFileChooser;
 
 public class ManifestRecordCreatorQMV {
 
-    public void manifestCreator(int trigger) throws FileNotFoundException, IOException {
+    public void manifestCreator(int trigger, String srcPath, String dstPath) throws FileNotFoundException, IOException {
         
         //Java documentation consulted for appending a timestamp to file name:
         //https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html
@@ -31,13 +31,20 @@ public class ManifestRecordCreatorQMV {
         //https://docs.oracle.com/javase/8/docs/api/javax/swing/JFileChooser.html#showDialog-java.awt.Component-java.lang.String-
         //https://docs.oracle.com/javase/8/docs/api/javax/swing/JFileChooser.html#setFileSelectionMode-int-
     
-        System.out.println("Source Folder Selection:");
-        File SourceFolder = getPath();
-        String sourceFolderName = SourceFolder.getAbsolutePath() + "\\";
+        //System.out.println("Source Folder Selection:");
+        //File SourceFolder = getPath();
+        //String sourceFolderName = SourceFolder.getAbsolutePath() + "\\";
+        File SourceFolder = new File(srcPath);
+        String sourceFolderName = srcPath;
             
-        System.out.println("Destination Folder Selection:");
-        File DestinationFolder = getPath();
-        String destinationFolderName = DestinationFolder.getAbsolutePath() + "\\";
+        //System.out.println("Destination Folder Selection:");
+        //File DestinationFolder = getPath();
+        //String destinationFolderName = DestinationFolder.getAbsolutePath() + "\\";
+        File DestinationFolder = new File(dstPath);
+        String destinationFolderName = dstPath;
+        
+        if (!destinationFolderName.substring(destinationFolderName.length()-2, destinationFolderName.length()-1).equals("\\"))
+        	destinationFolderName = destinationFolderName.concat("\\");
         
         //Java documentation consulted for creating a file and writing text to it:
         //https://docs.oracle.com/javase/7/docs/api/java/io/PrintWriter.html
@@ -53,7 +60,7 @@ public class ManifestRecordCreatorQMV {
         
         for (int i = 0; i < folderTraversal.length; i++){
             System.out.println(folderTraversal[i]);
-            manifestWriter.println(newCode.getAID(sourceFolderName + folderTraversal[i]) + 
+            manifestWriter.println(newCode.getAID(sourceFolderName + "\\" + folderTraversal[i]) + 
                     " created by " + sourceFolderName);
         }
         manifestWriter.close();        
@@ -71,6 +78,6 @@ public class ManifestRecordCreatorQMV {
     public void run(String[] args) throws IOException {
         int trigger;
         trigger = 1;    
-        manifestCreator(trigger); 
+        manifestCreator(trigger, args[1], args[2]); 
     }
 }   

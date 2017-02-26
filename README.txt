@@ -11,7 +11,7 @@ Project Part: 1
 
 -----About the project
 
-We are creating an SCM System.  The system will use instruction input by the user to determine how to manage the files. The program will hold multiple versions of a file and each file will be given distinct names to provide more information to help supplement the versioning system (aka artifacts).  To build the project, it has been broken down into smaller more managable parts.
+We are creating an SCM System.  The system will use instruction input by the user to determine how to manage the files. The program will hold multiple versions of a file (aka artifacts) and each file will be given distinct names to provide more information to help supplement the versioning system.  To build the project, it has been broken down into smaller more managable parts.
 
 -----Build Instructions
 0) Make sure to have java installed on computer and include it's bin files into your System Path
