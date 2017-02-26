@@ -20,6 +20,7 @@ public class SCM_Copy {
         
         SCM_Copy testCopy = new SCM_Copy();
         testCopy.copyDirectory(srcDir, destDir);
+        new File(destDir.getAbsolutePath()+"\\Activity").mkdir();//create Activity folder
         System.out.println("Copied directory");
     }
     
@@ -46,7 +47,7 @@ public class SCM_Copy {
                 System.out.println(src.getName()+" leaf folder create");
                 
                 //create code named artifact in the leaf folder
-                File artifact = new File(dest.getAbsolutePath(), getAID(src));
+                File artifact = new File(dest.getAbsolutePath(), ArtifactID.getAID(src));
                 copyFile(src, artifact);//copy the file contents
             }
             
@@ -82,41 +83,5 @@ public class SCM_Copy {
         
     }
     
-    /**
-     * Generate Artifact ID from a file
-     * @param file
-     * @return AID code name of a file
-     * @throws FileNotFoundException
-     * @throws IOException 
-     */
-    private String getAID(File file) throws FileNotFoundException, IOException{
-        int weights[] = {1, 3, 11, 17};
-        int count = 0;//for selecting weight
-        int sum = 0;//checksum value
-        int chr;
-        
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-        
-        while((chr = reader.read()) != -1){ //reader returns -1 for end of stream
-            if(chr > 31){ //ignore ascii control characters
-                sum += chr*(weights[count % 4]); //add to rolling checksum
-                count++;
-            }            
-        }
-        reader.close();
-        
-        int fileSize = (int)file.length();
-        String fileExt = getFileExtension(file);
-        return String.format("%d.%d.%s", sum, fileSize, fileExt);
-    }
     
-    /**
-     * Get the file extension from a file
-     * @param file
-     * @return file extension without the "." 
-     */ 
-    private String getFileExtension(File file){
-        String fileName = file.getName();
-        return fileName.substring(fileName.lastIndexOf(".") + 1);
-    }
 }

@@ -49,11 +49,11 @@ public class ManifestRecordCreatorQMV {
         //Source for directory traversal:
         //https://docs.oracle.com/javase/7/docs/api/java/io/File.html#list()
         String folderTraversal[] = SourceFolder.list();
-        CodeNameCreator newCode = new CodeNameCreator();
+        //ArtifactID newCode = new ArtifactID();
         
         for (int i = 0; i < folderTraversal.length; i++){
             System.out.println(folderTraversal[i]);
-            manifestWriter.println(newCode.getAID(sourceFolderName + folderTraversal[i]) + 
+            manifestWriter.println(ArtifactID.getAID(sourceFolderName + folderTraversal[i]) + 
                     " created by " + sourceFolderName);
         }
         manifestWriter.close();        
