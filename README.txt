@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 -----Program Name: SCM
 
 Authors: Sylvia Quach, Leo Montegrande, Sean Vidal
@@ -40,14 +39,3 @@ This software will require that the user has java 1.8 or higher and a windows PC
 "create [src location] [target location]"
 
 5) run the command "exit" to close the program
-=======
-Program Name: SCM
-	Authors: Sylvia Quach, Leo Montegrande, Sean Vidal
-	Group Name: QMV
-	Contact information:
-		Sylvia Quach: 
-		Leo Montegrande:
-		Sean Vidal: notationdevice@gmail.com
-	Course Information: CECS 543, Section 02
-	Project Part: 1
->>>>>>> 44d3e4b77d4da28ffc6ffcc6484afc417fadd091
