@@ -48,6 +48,7 @@ public class Main {
 					break;
 					
 				case "exit":
+					System.out.println("Exiting Program...");
 					isDone = true;
 					break;
 			}

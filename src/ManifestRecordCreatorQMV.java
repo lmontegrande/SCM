@@ -11,6 +11,7 @@
 
 import java.io.*;
 import java.util.*;
+
 import javax.swing.JFileChooser;
 
 public class ManifestRecordCreatorQMV {
@@ -34,7 +35,6 @@ public class ManifestRecordCreatorQMV {
         //System.out.println("Source Folder Selection:");
         //File SourceFolder = getPath();
         //String sourceFolderName = SourceFolder.getAbsolutePath() + "\\";
-        File SourceFolder = new File(srcPath);
         String sourceFolderName = srcPath;
             
         //System.out.println("Destination Folder Selection:");
@@ -55,18 +55,27 @@ public class ManifestRecordCreatorQMV {
        
         //Source for directory traversal:
         //https://docs.oracle.com/javase/7/docs/api/java/io/File.html#list()
-        String folderTraversal[] = SourceFolder.list();
-        //ArtifactID newCode = new ArtifactID();
+        RecursivelyAddToManifest(manifestWriter, sourceFolderName);
         
-        for (int i = 0; i < folderTraversal.length; i++){
-            System.out.println(folderTraversal[i]);
-
-            manifestWriter.println(ArtifactID.getAID(sourceFolderName + "\\" + folderTraversal[i]) + 
-                    " created by " + sourceFolderName);
-        }
         manifestWriter.close();        
     }
  
+    private void RecursivelyAddToManifest(PrintWriter manifestWriter, String sourceFolderName) throws FileNotFoundException, IOException {
+    	File sourceFolder = new File(sourceFolderName);
+    	String folderTraversal[] = sourceFolder.list();
+        //ArtifactID newCode = new ArtifactID();
+    	
+    	for (int i = 0; i < folderTraversal.length; i++){
+    		String currentFileName = sourceFolder.getAbsolutePath() + "\\" + folderTraversal[i];
+    		File currentFile = new File(currentFileName);
+    		if (currentFile.isDirectory()) {
+				RecursivelyAddToManifest(manifestWriter, currentFileName);
+    		} else {
+    			manifestWriter.println(ArtifactID.getAID(sourceFolderName + "\\" + folderTraversal[i]) + " created by " + currentFileName);
+    		}
+        }
+    }
+    
     //getPath() is incomplete; sample output is provided.
     public File getPath(){
         JFileChooser selectFolder = new JFileChooser();
