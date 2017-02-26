@@ -8,10 +8,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
+/*
+Reference for copying directory:
+http://javatutorialhq.com/java/example-source-code/io/file/copy-folder-java-using-java-io-package/
+https://www.youtube.com/watch?v=cUxoLssRyAE
+*/
 
-//http://javatutorialhq.com/java/example-source-code/io/file/copy-folder-java-using-java-io-package/
-//https://www.youtube.com/watch?v=cUxoLssRyAE
-
+/**
+ * Class for copying a source directory.
+ */
 public class SCM_Copy {
    
     public void run(String srcDirString, String destDirString) throws IOException {
@@ -44,14 +49,10 @@ public class SCM_Copy {
         }
         else{//the source is a file
             if(new File(dest.getAbsolutePath()).mkdir()){//create leaf folder
-                System.out.println(src.getName()+" leaf folder create");
-                
                 //create code named artifact in the leaf folder
                 File artifact = new File(dest.getAbsolutePath(), ArtifactID.getAID(src));
                 copyFile(src, artifact);//copy the file contents
-            }
-            
-            
+            }            
         }
         
         
@@ -78,8 +79,6 @@ public class SCM_Copy {
         
         in.close();
         out.close();
-        
-        System.out.println(src+" copied to "+dest);
         
     }
     
