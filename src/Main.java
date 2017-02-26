@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+//C:\Users\lmont\Desktop\TestInput\mypt
+//C:\Users\lmont\Desktop\TestOutput
 
 public class Main {
 
-	private static String[] commands = {"clone", "push", "pull", "exit"};
+	private static String[] commands = {"create", "exit"};
 	
 	public static void main(String[] args) {
 		handleInput();
@@ -19,28 +21,30 @@ public class Main {
 	public static void handleInput() {
 		Scanner in = new Scanner(System.in);
 		boolean isDone = false;
+		System.out.println("Enter a command (ex: [command] [source] [target])");
 		
 		while (!isDone) {
 			String command = in.nextLine();
 			String[] values = null;
 			
-			try{
+			try {
 				values = parseInput(command);
 			} catch (Exception e) {
 				System.out.println("Invalid Input");
+				continue;
 			}
 			
 			if (values == null || values.length == 0) break;
 			
-			switch(values[values.length-1]){
+			switch(values[0]){
 			
-				case "copy":
+				case "create":
 					// Handle Manifest
-					handleManifest(values);
-					// Create name
-					String newFileName = createFileName(values[values.length-1]);
+					System.out.println("Generating Manifest at " + values[2]);
+					createManifest(values);
 					// Copy file values
-					CopyFile(values[1], values[2]);
+					System.out.println("Cloning Files from " + values[1] + " to " + values[2]);
+					createRepo(values);
 					break;
 					
 				case "exit":
@@ -54,12 +58,12 @@ public class Main {
 	 * Handle Manifest
 	 * @param args
 	 */
-	private static void handleManifest(String[] args) {
+	private static void createManifest(String[] values) {
 		ManifestRecordCreatorQMV recordCreator = new ManifestRecordCreatorQMV();
 		try {
-			recordCreator.run(args);
-		} catch (IOException e) {
-			e.printStackTrace();
+			recordCreator.run(values);
+		} catch (Exception e) {
+			System.out.println("Error Generating Manifest");
 		}
 	}
 	
@@ -68,23 +72,35 @@ public class Main {
 	 * @param uri
 	 * @param newFileName
 	 */
-	private static void CopyFile(String uri, String newFileName) {
+	private static void createRepo(String[] values) {
 		// Copy file to new location
 		SCM_Copy copy = new SCM_Copy();
+		try {
+			copy.run(values[1], values[2]);
+		} catch (IOException e) {
+			System.out.println("Error Copying Repo");
+		}
 	}
 	
 	/**
 	 * Parses the user's input
 	 * @param input
 	 * @return
+	 * @throws Exception 
 	 */
 	private static String[] parseInput(String input) throws Exception {
 		// Parse values into [command type] [src] [destination] [file name]
 		// the values array will vary depending on [command type]
+		// Remove "/" character at the end of URI
 		String[] values = input.split(" ");
 		
-		for(int x=0;x<commands.length;x++) {
-			//
+		switch(values[0]) {
+			case "create":
+				if (!isValidPath(values[1]) || !isValidPath(values[2]))
+					throw new Exception();
+				break;
+			case "exit":
+				break;
 		}
 		
 		return values;
@@ -95,32 +111,12 @@ public class Main {
 	 * @return
 	 */
 	private static boolean isValidPath(String path) {
-		String p = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9_.-]+)+\\\\?";
+		
+		if (!path.contains(":")) {
+			path = System.getProperty("user.dir") + "\\" + path;
+		}
+		
+		String p = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9\\s_.-]+)+\\\\?";
 		return Pattern.matches(p, path);
 	}
-	
-	/**
-	 * Uses algorithm provided by Siska for creating a SCM file name
-	 * @param filePath
-	 * @return
-	 */
-	private static String createFileName(String filePath) {
-		String newFileName = "";
-		long checkSum = -1;
-		long Bytes = -1;
-		
-		String[] uriParsed = filePath.split("/");
-		
-		newFileName = uriParsed[uriParsed.length-1];
-		
-		File file = new File(filePath);
-		checkSum = file.length();
-		
-		// Parse filePath to get the file's name
-		// Run Algorithm to create name
-		// [CheckSum] + [#Bytes] + [FileName] + .java
-		
-		return newFileName;
-	}
-	
 }
