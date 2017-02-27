@@ -17,7 +17,7 @@ We are creating an SCM System.  The system will use instruction input by the use
 0) Make sure to have java installed on computer and include it's bin files into your System Path
 1) Download the project
 2) Open command prompt and, from inside there, navigate to src folder of the project
-3) run the command "javac Main.java" to compile the class
+3) run the command "javac *.java" to compile the classes
 4) run the command "java Main" to run the program
 5) from there, run the command "create [src location] [target location]"
 
