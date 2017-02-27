@@ -22,9 +22,10 @@ public class ManifestRecordCreatorQMV {
         //https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html
         //Time stamp format, via substring: YYYY-MM-DD
         String timeStamp = java.time.LocalDateTime.now().toString().substring(0, 10);
-         
+        
+        //placeholder for user command
         String triggerDetails = "";
-        switch (trigger){case 1: triggerDetails = "Triggered by: Create Repository";}
+        switch (trigger){case 1: triggerDetails = "create";}
         
         //Source for open file dialog box and subsequent selection: 
         //https://docs.oracle.com/javase/8/docs/api/javax/swing/JFileChooser.html
@@ -49,9 +50,12 @@ public class ManifestRecordCreatorQMV {
         //Java documentation consulted for creating a file and writing text to it:
         //https://docs.oracle.com/javase/7/docs/api/java/io/PrintWriter.html
         PrintWriter manifestWriter = new PrintWriter(destinationFolderName + "Manifest - " +  timeStamp + ".txt");
-        manifestWriter.println("Manifest - " + timeStamp);
+        //manifestWriter.println("Manifest - " + timeStamp);
+        manifestWriter.println("SCM-1");
         manifestWriter.println("Date Created: " + java.time.LocalDateTime.now().toString());
-        manifestWriter.println(triggerDetails);
+        manifestWriter.println("Command: "+triggerDetails+" "+srcPath+" "+dstPath);
+        manifestWriter.println("Source Path: "+srcPath);
+	manifestWriter.println("Target Path: "+dstPath);
        
         //Source for directory traversal:
         //https://docs.oracle.com/javase/7/docs/api/java/io/File.html#list()
@@ -63,7 +67,6 @@ public class ManifestRecordCreatorQMV {
     private void RecursivelyAddToManifest(PrintWriter manifestWriter, String sourceFolderName) throws FileNotFoundException, IOException {
     	File sourceFolder = new File(sourceFolderName);
     	String folderTraversal[] = sourceFolder.list();
-        //ArtifactID newCode = new ArtifactID();
     	
     	for (int i = 0; i < folderTraversal.length; i++){
     		String currentFileName = sourceFolder.getAbsolutePath() + "\\" + folderTraversal[i];
