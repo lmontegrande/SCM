@@ -15,7 +15,11 @@ https://www.youtube.com/watch?v=cUxoLssRyAE
 */
 
 /**
- * Class for copying a source directory.
+ * 
+ * @author Sylvia Quach
+ * @contact esquach@gmail.com
+ * @description The SMC copy class handles copying a directory from one location to another.
+ *
  */
 public class SCM_Copy {
    

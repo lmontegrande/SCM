@@ -1,7 +1,11 @@
 import java.io.*;
 
 /**
- * Class for generating the Artifact ID (AID) code name of a file
+ * 
+ * @author Sylvia Quach
+ * @contact esquach@gmail.com
+ * @description This class handles generating the Artifact ID (AID) code name of a file.
+ *
  */
 public final class ArtifactID {
     private static final int[] WEIGHTS = {1, 3, 11, 17};//weights for checksum

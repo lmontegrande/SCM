@@ -4,9 +4,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-//C:\Users\lmont\Desktop\TestInput\mypt
-//C:\Users\lmont\Desktop\TestOutput
-
+/**
+ * 
+ * @author Leo Montegrande
+ * @contact lmontegrande91@gmail.com
+ * @description This is the main class of the SCM program.  The program waits 
+ * for user input and then parses the string to determine the user's commands
+ * and the paramaters passed in.   The class will error check to make sure the
+ * user puts in the correct information.
+ *
+ */
 public class Main {
 
 	private static String[] commands = {"create", "exit"};
@@ -51,6 +58,8 @@ public class Main {
 					System.out.println("Exiting Program...");
 					isDone = true;
 					break;
+				default:
+					System.out.println("Not a recognized command");
 			}
 		}
 	}

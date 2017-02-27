@@ -11,9 +11,15 @@
 
 import java.io.*;
 import java.util.*;
-
 import javax.swing.JFileChooser;
 
+/**
+ * 
+ * @author Sean Vidal
+ * @contact notationdevice@gmail.com
+ * @description This class handles managing the manifest whenever the repo is changed.
+ *
+ */
 public class ManifestRecordCreatorQMV {
 
     public void manifestCreator(int trigger, String srcPath, String dstPath) throws FileNotFoundException, IOException {

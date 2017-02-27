@@ -21,7 +21,10 @@ We are creating an SCM System.  The system will use instruction input by the use
 4) run the command "java Main" to run the program
 5) from there, run the command "create [src location] [target location]"
 
-*Note: You can use absolute path, or relative path from the src folder. So "..\.." is allowed for src and target paramaters
+*Note: 
+- You can use absolute path, or relative path from the src folder. So "..\.." is allowed for src and target paramaters
+- An example you can test is "create TestInput TestOutput"
+- An existing src file/directory is necessary, but if a target file/directory isn't, it will be generated for you
 
 -----Usage
 This software is intended to provide a base SCM System for working collaboratively on any type of project that requires it's members to manage and create files.
