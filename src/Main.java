@@ -39,12 +39,12 @@ public class Main {
 			switch(values[0]){
 			
 				case "create":
-					// Handle Manifest
-					System.out.println("Generating Manifest at " + values[2]);
-					createManifest(values);
 					// Copy file values
 					System.out.println("Cloning Files from " + values[1] + " to " + values[2]);
 					createRepo(values);
+					// Handle Manifest
+					System.out.println("Generating Manifest at " + values[2]);
+					createManifest(values);
 					break;
 					
 				case "exit":
